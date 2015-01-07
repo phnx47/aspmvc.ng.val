@@ -1,0 +1,57 @@
+﻿@using AspMvc.Ng.Val.Extensions
+@model AspMvc.Ng.Val.Models.TestEntity
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div data-ng-app="app" data-ng-controller="Ctrl">
+        <form name="testForm" novalidate="" data-ngval-submit="submit()">
+            <input type="text" name="username" data-ng-model="user.name" @Html.NgValFor(u => u.RequiredProperty) />
+          
+            <div data-ng-show="testForm.username.ngval.showError">
+                <div data-ng-repeat="err in testForm.username.ngval.errors">
+                    <span>{{err.message}}</span>
+                    <br />
+                </div>
+            </div>
+            <input type="submit" />
+        </form>
+         <form name="testForm1" novalidate="" data-ngval-submit="submit1()">
+            <input type="number" name="range" data-ng-model="user1.range" @Html.NgValFor(u => u.Range) />
+            <div data-ng-show="testForm1.range.ngval.showError">
+                <div data-ng-repeat="err in testForm1.range.ngval.errors">
+                    <span>{{err.message}}</span>
+                    <br />
+                </div>
+            </div>
+            <input type="submit" />
+        </form>
+       <a data-ng-click="test()">test</a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js"></script>
+    <script src="~/Scripts/ngval/ngval.js"></script>
+    <script>
+        angular.module('app', ['ngval']).controller('Ctrl', function ($scope) {
+            
+            $scope.user = {};
+            $scope.user1 = {};
+            $scope.submit = function () {
+                
+            };
+            $scope.submit1 = function () {
+
+            };
+
+            $scope.test = function () {
+               
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NgVal.Tests.Models
+namespace AspMvc.Ng.Val.Models
 {
     public class TestEntity
     {
         [Required]
         public string RequiredProperty { get; set; }
 
-        [StringLength(10)]
-        public string Length10Property { get; set; }
+        [Range(0, 10)]
+        public int Range { get; set; }
 
         [Required]
         [RegularExpression("\\d")]
