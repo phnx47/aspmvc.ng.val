@@ -9,7 +9,6 @@
                 controller: [
                     '$scope', function ($scope) {
                         this.attempted = false;
-
                         var formController = null;
 
                         this.setAttempted = function () {
@@ -64,7 +63,7 @@
                                 return scope.ngvalForms[attributes.name].attempted;
                             }, function (attempted) {
 
-                                if (attempted == false) {
+                                if (attempted === false) {
 
                                     formController.$setPristine();
 
@@ -72,7 +71,7 @@
 
                                         var input = formController[i];
 
-                                        if (input.ngval != undefined) {
+                                        if (input != undefined && input.hasOwnProperty('ngval') && input.ngval != undefined) {
                                             input.ngval.dirty = false;
                                             input.ngval.showError = false;
                                         }
@@ -87,7 +86,7 @@
         }
     ]);
 
-    angular.module('ngval').directive('ngvalField', ['$parse', function ($parse) {
+    angular.module('ngval').directive('ngvalField', [function () {
         return {
             restrict: 'A',
             require: ['^ngvalSubmit', 'ngModel'],
@@ -104,10 +103,10 @@
                 };
 
                 var messages = angular.fromJson(iAttrs.ngvalField);
-                
+
                 var getErrors = function () {
                     var errors = [];
-                    
+
                     for (var i = 0; i < messages.length; i++) {
                         if (ngModel.$error[messages[i].type]) {
                             errors.push({ validator: messages[i].type, message: messages[i].message });
@@ -122,7 +121,7 @@
                     ngModel.ngval = {
                         errors: errors,
                         showError: (errors.length > 0 && ngvalSubmit.attempted),
-                        dirty: (ngModel.$dirty && ngvalSubmit.attempted),
+                        dirty: (ngModel.$dirty && ngvalSubmit.attempted)
                     };
 
                 };
